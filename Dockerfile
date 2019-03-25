@@ -1,11 +1,13 @@
 FROM php:7.1-fpm-alpine
 
+ENV TZ "Europe/Warsaw"
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Configuring timezone
-RUN cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime \
-    && echo "Europe/Warsaw" >  /etc/timezone
+RUN cp /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo "$TZ" >  /etc/timezone
 
 # Install nginx — most of the RUN command taken from
 # https://github.com/nginxinc/docker-nginx/blob/master/stable/alpine/Dockerfile
